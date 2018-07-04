@@ -1,0 +1,21 @@
+1. hive输出 2mins
+set mapreduce.job.queuename=root.develop.adhoc.ac;
+select teacher_id, count(distinct member_id) as tds 
+from gobblin.qukan_p_member_info 
+where day = '${YESTERDAY}'
+and teacher_id > 100000000
+and to_date(update_time) = '${YESTERDAY}'
+group by teacher_id
+having tds >= 8
+
+人数：11,000
+
+2. 输入出图 17mins
+3. 模型预测 1mins
+4. 模型验证 2mins
+166/494
+106/475
+
+模型调整：能够识别出对角线的连续性，但是识别不出右下角的密集度 
+调整learning_rate max_depth n_estimators 
+增减输入需重新调整参数
